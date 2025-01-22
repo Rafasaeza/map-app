@@ -12,7 +12,7 @@ export default function MapOwner({ user }) {
   // Obtener las coordenadas del usuario desde la base de datos al montar el componente
   useEffect(() => {
     const fetchCoordinates = async () => {
-      const response = await fetch(`/api/user?email=${user.email}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user?email=${user.email}`);
       const data = await response.json();
       setCoordinates(data.coordinates || []); // Maneja el caso donde no haya coordenadas
     };
@@ -44,7 +44,7 @@ export default function MapOwner({ user }) {
   // Manejar la subida de la imagen
   const handleImageUpload = async () => {
     if (formData.get('file')) {
-      const response = await fetch('/api/image-upload', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/image-upload`, {
         method: 'POST',
         body: formData,
       });
@@ -68,7 +68,7 @@ export default function MapOwner({ user }) {
       const coords = await getCoordinatesFromLocation(location);
       if (coords) {
         // Guardar la nueva coordenada en la base de datos
-        const response = await fetch(`/api/user?email=${user.email}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user?email=${user.email}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

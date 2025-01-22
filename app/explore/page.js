@@ -10,7 +10,7 @@ export default function ExplorePage() {
   const [submited,setSubmited] = useState(false);
   useEffect(() => {
         const fetchCoordinates = async () => {
-        const response = await fetch(`/api/user?email=rafasaezarana@gmail.com`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user?email=rafasaezarana@gmail.com`);
         const data = await response.json();
         console.log("Coordinadas:",data.coordinates);
         setCoordinates(data.coordinates); 
