@@ -1,25 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { CldImage } from 'next-cloudinary';
-import styled from 'styled-components';
-
-const GridContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columnas */
-  gap: 20px; /* Espacio entre elementos */
-  padding: 30px; /* Espacio alrededor del contenedor */
-`;
-
-const GridItem = styled.div`
-  position: relative; /* Ajusta el contenido dentro del grid */
-`;
-
-const GridImage = styled(CldImage)`
-  width: 400px; /* Tamaño fijo */
-  height: 400px; /* Tamaño fijo */
-  object-fit: cover; /* Mantiene la relación de aspecto sin distorsionar */
-  border-radius: 8px; /* Bordes redondeados opcionales */
-`;
+import './styles.css'; // Asegúrate de importar el archivo CSS
 
 export default function GridImg({ email }) {
     const [userData, setUserData] = useState(null);
@@ -45,17 +27,18 @@ export default function GridImg({ email }) {
     }
 
     return (
-        <GridContainer>
+        <div className="grid-container">
             {userData.coordinates.map((coordinate) => (
-                <GridItem key={coordinate.urlImg}>
-                    <GridImage 
+                <div key={coordinate.urlImg} className="grid-item">
+                    <CldImage 
                         width="200" 
                         height="200" 
                         src={coordinate.urlImg} 
                         alt="pointer-img" 
+                        className="grid-image"
                     />
-                </GridItem>
+                </div>
             ))}
-        </GridContainer>
+        </div>
     );
 }

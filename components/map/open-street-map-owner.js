@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import OpenStreetMap from "./open-street-map";
 import GridImg from "../global/gridImg";
-
+import "./styles.css";
 export default function MapOwner({ user }) {
   const [coordinates, setCoordinates] = useState([]);
   const [location, setLocation] = useState(""); // Entrada para la ciudad o país
@@ -87,15 +87,18 @@ export default function MapOwner({ user }) {
     }
   };
 
-  return (
-    <>
-      <div style={{ padding: '20px' }}>
-        {/* Formulario para ingresar una ciudad o país */}
+ // Tu componente actualizado (por ejemplo, `MapPage.js`)
+return (
+  <>
+    
+      {/* Formulario para ingresar una ciudad o país */}
+      <div className="form-wrapper">
         <input
           type="text"
           placeholder="Ingrese una ciudad o país"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
+          className="input-text"
         />
         <input
           type="file"
@@ -104,20 +107,25 @@ export default function MapOwner({ user }) {
               formData.append('file', e.target.files[0]);
             }
           }}
+          className="input-file"
         />
         <button
-          style={{ marginLeft: '5px', backgroundColor: "#f3f0f0", borderRadius: "10%", padding: '5px' }}
+          className="add-button"
           onClick={handleAddCoordinate}
         >
           Añadir
         </button>
       </div>
-      <div style={{ height: '50vh', width: '100%' }}>
-        {/* Mapa */}
-        <OpenStreetMap coordinates={coordinates} />
-        {/* GridImg se actualizará automáticamente */}
-        {refreshGrid || <GridImg email={user.email} />}
-      </div>
-    </>
-  );
+    
+
+    <div className="map-wrapper">
+      {/* Mapa */}
+      <OpenStreetMap coordinates={coordinates} />
+      {/* GridImg se actualizará automáticamente */}
+      {refreshGrid || <GridImg email={user.email} />}
+    </div>
+  </>
+);
+
+  
 }
